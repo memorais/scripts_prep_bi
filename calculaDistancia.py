@@ -57,7 +57,7 @@ calculaDistancia.py <Lista de residuos> <Lista de ligantes> <Arquivo CSV com as 
 	ligantes = args[1]
 	arquivo_csv = args[2]
 
-	print "Snapshot,Residuo,Ligante,Distancia"
+	print "Snapshot,Residuo,Ligante,Distancia,Classificacao"
 
 	lista_residuos = pega_arquivo(residuos)
 	lista_ligantes = pega_arquivo(ligantes)
@@ -86,14 +86,24 @@ calculaDistancia.py <Lista de residuos> <Lista de ligantes> <Arquivo CSV com as 
 				valor_ligantey = float(snapshot[ligantey])
 				valor_ligantez = float(snapshot[ligantez])
 				
-				distancia = calcula_distancia(valor_residuox,valor_residuoy,valor_residuoz,valor_ligantex,valor_ligantey,valor_ligantez)
+				# Excluindo H
+				divisaox = residuox.split('_')
+				divisaoy = residuoy.split('_')
+				divisaoz = residuoz.split('_')
 
-				if distancia < 4:
-					residuoformat = residuo_chave.rstrip()
-					residuolista = residuoformat.split('_')
-					liganteformat = ligante.rstrip()
-					ligantelista = liganteformat.split('_')
-					print snapshot['SS']+','+residuolista[0]+'_'+residuolista[1]+','+ligantelista[0]+','+str(round(distancia,2))
+				if divisaox[2][0] != 'H' or divisaoy[2][0] != 'H' or divisaoz[2][0] != 'H':
+	
+					distancia = calcula_distancia(valor_residuox,valor_residuoy,valor_residuoz,valor_ligantex,valor_ligantey,valor_ligantez)
+
+					if distancia < 4:
+						residuoformat = residuo_chave.rstrip()
+						residuolista = residuoformat.split('_')
+						liganteformat = ligante.rstrip()
+						ligantelista = liganteformat.split('_')
+						if distancia <= 2:
+							print snapshot['SS']+','+residuolista[0]+'_'+residuolista[1]+','+ligantelista[0]+','+str(round(distancia,2))+','+'<=2'
+						else:
+							print snapshot['SS']+','+residuolista[0]+'_'+residuolista[1]+','+ligantelista[0]+','+str(round(distancia,2))+','+'2-4'
 					# saida.append({'Snapshot': snapshot['SS'], 'Residuo': residuo_chave.rstrip(), 'Ligante': ligante.rstrip(), 'Distancia': distancia});
 
 	# print saida
