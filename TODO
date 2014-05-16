@@ -1,0 +1,7 @@
+* Não contar o H de nenhum dos dois lados, nem do ligante nem do residuo.
+* Classificar medição até 2
+* Classificar medição entre 2 - 4
+
+* Realizar a segregação do arquivo Docking:
+	* Remover NAD (NAH) com ETH
+	* Deixar NAD (NAH) com TCL
