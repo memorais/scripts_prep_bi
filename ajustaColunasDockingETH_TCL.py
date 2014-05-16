@@ -25,11 +25,11 @@ def parse_arg1(argumento):
 if __name__ == "__main__":
 
 	args = sys.argv[1:]
-	uso = """ Uso: ajustaColunasDockingETH_TCL.py [-m]|[-e] <Nome das colunas separados por virgula> <Nome do Arquivo CSV>  
+	uso = """ Uso: ajustaColunasDockingETH_TCL.py [-m]|[-e] <Nome das colunas separados por virgula> <Nome do Arquivo CSV de entrada> <Nome do Arquivo CSV de saida> 
  -[m]anter - Mantem apenas as colunas listadas no parametro subsequente 
  -[e]xcluir - Exclui apenas as colunas listadas no parametro subsequente"""
 
-	if len(args) != 3:
+	if len(args) != 4:
 		print uso
 		sys.exit(0)
 
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
 	with open(args[2],"rb") as entrada:
 		leitor = csv.DictReader(entrada, delimiter=',')
-		saida = 'resultado_ajustaColunasDockingETH_TCL.csv' 
+		saida = args[3] 
 		with open(saida,"wb") as retorno:
 			if modo == 1:
 				escritor = csv.DictWriter(retorno, colunas, delimiter=',')
