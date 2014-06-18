@@ -77,7 +77,7 @@ criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experiment
 	print gera_sql_insert(dim_ligante, "DIM_Ligante")
 	print gera_sql_insert(dim_grupo, "DIM_Grupo")
 	print gera_sql_insert(dim_modelo, "DIM_Modelo_Dinamico")
-	print gera_sql_insert(dim_experimento, "DIM Experimento")
+	print gera_sql_insert(dim_experimento, "DIM_Experimento")
 
 	dim_residuos = pega_arquivo_csv(args[4])
 
@@ -89,9 +89,12 @@ criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experiment
 
 	residuos_id = []
 	residuos_nome = []
+	cont = 0
 	for linha in dim_residuos:
 		residuos_id.append(linha['Id'])
 		residuos_nome.append(linha['Nome'])
+		print "INSERT INTO DIM_R"+str(cont+1)+" (Id, Nome) VALUES ("+linha['Id']+", "+linha['Nome']+");"
+		cont = cont+1
 
 	arquivos_sumarizados = list(pega_arquivo_csv(args[5]))
 	arquivo_principal = pega_arquivo_csv (args[6])
