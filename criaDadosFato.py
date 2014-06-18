@@ -17,7 +17,6 @@
 
 import sys
 import csv
-import copy
 
 def pega_arquivo_csv(nome_arquivo):
         """ Abre o arquivo, salva o csv em um dicionario e retorna o dicionario """

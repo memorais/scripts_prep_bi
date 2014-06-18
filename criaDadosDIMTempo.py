@@ -37,14 +37,12 @@ O numero nao pode ser menor que 1.
 
 	numero = int(args[0])
 
-	comando = "INSERT INTO DIM_Tempo VALUES ("
+	comando = "INSERT INTO DIM_Tempo VALUES "
 	
 	valores = ""
 
 	for i in range(numero):
-		if i == (numero-1):
-			valores += str(i+1)
-		else:
-			valores += str(i+1)+","
+		valores += "("+str(i+1)+"), "
 
-	print comando+valores+");"
+	tamanho = len(valores)
+	print comando+valores[:tamanho-2]+";"
