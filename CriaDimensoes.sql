@@ -52,6 +52,7 @@ constraint ID_DIM_R10 primary key (Id));
 create table DIM_Ligante (
 Descricao char(30),
 Id numeric(10) not null,
+Nome char(30) not null,
 constraint ID_DIM_Ligante primary key (Id));
 
 create table DIM_Grupo (

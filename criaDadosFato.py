@@ -93,7 +93,7 @@ criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experiment
 	for linha in dim_residuos:
 		residuos_id.append(linha['Id'])
 		residuos_nome.append(linha['Nome'])
-		print "INSERT INTO DIM_R"+str(cont+1)+" (Id, Nome) VALUES ("+linha['Id']+", "+linha['Nome']+");"
+		print "INSERT INTO DIM_R"+str(cont+1)+" (Id, Nome) VALUES ("+linha['Id']+", \'"+linha['Nome']+"\');"
 		cont = cont+1
 
 	arquivos_sumarizados = list(pega_arquivo_csv(args[5]))
