@@ -40,9 +40,18 @@ O numero nao pode ser menor que 1.
 	comando = "INSERT INTO DIM_Tempo VALUES "
 	
 	valores = ""
-
+	cont = 0
 	for i in range(numero):
-		valores += "("+str(i+1)+"), "
-
-	tamanho = len(valores)
-	print comando+valores[:tamanho-2]+";"
+		cont = cont + 1
+		if cont == 1000:
+			valores += "("+str(i+1)+"), "
+			cont = 0
+        		tamanho = len(valores)
+		        print comando+valores[:tamanho-2]+";"
+			valores = ""
+		else:
+			valores += "("+str(i+1)+"), "
+	
+	if valores != "":
+		tamanho = len(valores)
+		print comando+valores[:tamanho-2]+";"
