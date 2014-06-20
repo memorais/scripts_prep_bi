@@ -94,7 +94,7 @@ criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experiment
 	for linha in dim_residuos:
 		residuos_id.append(linha['Id'])
 		residuos_nome.append(linha['Nome'])
-		print "INSERT INTO DIM_R"+str(cont+1)+" (Id, Nome, Descricao) VALUES ("+linha['Id']+", \'"+linha['Nome']+"\', \'"+linha['Descricao']+"\');"
+		print "INSERT INTO DIM_R"+str(cont+1)+" (Id, Nome, Tipo) VALUES ("+linha['Id']+", \'"+linha['Nome']+"\', \'"+linha['Tipo']+"\');"
 		cont = cont+1
 
 	# Agrupamento

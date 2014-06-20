@@ -66,7 +66,7 @@ Nome char(30) not null,
 constraint ID_DIM_Ligante primary key (Id));
 
 create table DIM_Grupo (
-Descricao char(30) not null,
+Descricao char(130) not null,
 IdAgrupamento numeric(10) not null,
 Id numeric(10) not null,
 constraint ID_DIM_Grupo primary key (Id));
@@ -77,12 +77,12 @@ constraint ID_DIM_Tempo primary key (Instante));
 
 create table DIM_Modelo_Dinamico (
 Id numeric(10) not null,
-Descricao char(60) not null,
+Descricao char(160) not null,
 constraint ID_DIM_Modelo_Dinamico primary key (Id));
 
 create table DIM_Experimento (
 Id numeric(10) not null,
-Descricao char(60) not null,
+Descricao char(160) not null,
 DataHora date not null,
 constraint ID_DIM_Experimento primary key (Id));
 
