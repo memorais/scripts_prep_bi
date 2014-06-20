@@ -2,51 +2,61 @@
 create table DIM_R1 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R1 primary key (Id));
 
 create table DIM_R2 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R2 primary key (Id));
 
 create table DIM_R3 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R3 primary key (Id));
 
 create table DIM_R4 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R4 primary key (Id));
 
 create table DIM_R5 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R5 primary key (Id));
 
 create table DIM_R6 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R6 primary key (Id));
 
 create table DIM_R7 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R7 primary key (Id));
 
 create table DIM_R8 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R8 primary key (Id));
 
 create table DIM_R9 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R9 primary key (Id));
 
 create table DIM_R10 (
 Nome char(30) not null,
 Id numeric(10) not null,
+Tipo char(30) not null,
 constraint ID_DIM_R10 primary key (Id));
 
 create table DIM_Ligante (
