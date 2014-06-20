@@ -63,10 +63,10 @@ if __name__ == "__main__":
 
 	uso = """
 Uso: 
-criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experimento> <CSV Residuos mais importantes> <Arquivos Sumarizados> <Arquivo CSV Principal>
+criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experimento> <CSV Residuos mais importantes> <Arquivos Sumarizados> <Arquivo CSV Principal> <CSV Agrupamento>
 		"""
 
-	if len(args) != 7:
+	if len(args) != 8:
 		print uso 
 		sys.exit(0)
 	dim_ligante = pega_arquivo_csv(args[0])
@@ -87,17 +87,28 @@ criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experiment
 	for linha in dim_ligante:
 		ligantes_dict[linha['Id']] = linha['Nome']
 
+	# Residuos
 	residuos_id = []
 	residuos_nome = []
 	cont = 0
 	for linha in dim_residuos:
 		residuos_id.append(linha['Id'])
 		residuos_nome.append(linha['Nome'])
-		print "INSERT INTO DIM_R"+str(cont+1)+" (Id, Nome) VALUES ("+linha['Id']+", \'"+linha['Nome']+"\');"
+		print "INSERT INTO DIM_R"+str(cont+1)+" (Id, Nome, Descricao) VALUES ("+linha['Id']+", \'"+linha['Nome']+"\', \'"+linha['Descricao']+"\');"
 		cont = cont+1
 
+	# Agrupamento
+	arquivo_agrupamento = pega_arquivo_csv(args[7])
+	agrupamento_dict = {}
+	for linha in arquivo_agrupamento:
+		agrupamento_dict[linha['Snapshot']] = linha['Grupo']
+	dim_grupo = pega_arquivo_csv(args[1])
+	dim_grupo_dict = {}
+	for linha in dim_grupo:
+                dim_grupo_dict[linha['IdAgrupamento']] = linha['Id']
+
 	arquivos_sumarizados = list(pega_arquivo_csv(args[5]))
-	arquivo_principal = pega_arquivo_csv (args[6])
+	arquivo_principal = pega_arquivo_csv(args[6])
 
 	for linha in arquivo_principal:
 		instante = linha['SS']
@@ -112,8 +123,7 @@ criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experiment
 		idr9 = residuos_id[8]
 		idr10 = residuos_id[9]
 		id_modelo_dinamico = '1'
-		id_grupo = '1'
-		id_experimento = '1'
+		id_grupo = dim_grupo_dict[agrupamento_dict[instante]]
 		for ligante in ligantes_dict.iterkeys():
 			numero_conexoes_r1 = resgata_numero_contatos(arquivos_sumarizados, instante, residuos_nome[0], ligantes_dict[ligante])
 			numero_conexoes_r2 = resgata_numero_contatos(arquivos_sumarizados, instante, residuos_nome[1], ligantes_dict[ligante])
@@ -128,6 +138,12 @@ criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experiment
 			feb = linha[ligantes_dict[ligante]+"BESTFEB"]
 			rmsd = linha[ligantes_dict[ligante]+"BESTRMSD"]
 			id_ligante = ligante
+
+			# Trecho para separacao do experimento - TODO - Isso tem que ser ajustado pois neste caso foi um workaround para um unico arquivo que tinha dois experimentos diferentes
+			if ligantes_dict[ligante] == "ETH":
+				id_experimento = '1'
+			elif ligantes_dict[ligante] == "TCL":
+				id_experimento = '2'
 			
 			comando = "INSERT INTO FATO (FEB, RMSD, NumeroConexoesR1, NumeroConexoesR2, NumeroConexoesR3, NumeroConexoesR4, NumeroConexoesR5, NumeroConexoesR6, NumeroConexoesR7, NumeroConexoesR8, NumeroConexoesR9, NumeroConexoesR10, IdModeloDinamico, Instante, IdLigante, IdR1, IdR2, IdR3, IdR4, IdR5, IdR6, IdR7, IdR8, IdR9, IdR10, IdGrupo, IdExperimento) VALUES ("+feb+", "+rmsd+", "+numero_conexoes_r1+", "+numero_conexoes_r2+", "+numero_conexoes_r3+", "+numero_conexoes_r4+", "+numero_conexoes_r5+", "+numero_conexoes_r6+", "+numero_conexoes_r7+", "+numero_conexoes_r8+", "+numero_conexoes_r9+", "+numero_conexoes_r10+", "+id_modelo_dinamico+", "+instante+", "+id_ligante+", "+idr1+", "+idr2+", "+idr3+", "+idr4+", "+idr5+", "+idr6+", "+idr7+", "+idr8+", "+idr9+", "+idr10+", "+id_grupo+", "+id_experimento+");"
 			print comando
