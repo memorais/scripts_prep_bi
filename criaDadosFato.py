@@ -135,7 +135,12 @@ criaDadosFato.py <DIM Ligante> <DIM Grupo> <DIM Modelo Dinamico> <DIM Experiment
 			numero_conexoes_r8 = resgata_numero_contatos(arquivos_sumarizados, instante, residuos_nome[7], ligantes_dict[ligante])
 			numero_conexoes_r9 = resgata_numero_contatos(arquivos_sumarizados, instante, residuos_nome[8], ligantes_dict[ligante])
 			numero_conexoes_r10 = resgata_numero_contatos(arquivos_sumarizados, instante, residuos_nome[9], ligantes_dict[ligante])
-			feb = linha[ligantes_dict[ligante]+"BESTFEB"]
+			# FEB positiva nao interessa para os especialistas de dominio
+			bestfeb = float(linha[ligantes_dict[ligante]+"BESTFEB"])
+			if bestfeb > 0:
+				feb = '0'
+			else:
+				feb = linha[ligantes_dict[ligante]+"BESTFEB"]
 			rmsd = linha[ligantes_dict[ligante]+"BESTRMSD"]
 			id_ligante = ligante
 
